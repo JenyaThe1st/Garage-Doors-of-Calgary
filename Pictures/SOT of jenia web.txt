@@ -1,0 +1,60 @@
+Core Project
+
+package.json
+package-lock.json
+next.config.ts
+tsconfig.json
+next-env.d.ts
+postcss.config.mjs
+tailwind.config.ts
+App Routes (pages)
+
+/ → [app/page.tsx](C:\All doors repair project\app\page.tsx)
+/garage-door-repair-calgary → [app/garage-door-repair-calgary/page.tsx](C:\All doors repair project\app\garage-door-repair-calgary\page.tsx)
+/door-repair-installation-calgary → [app/door-repair-installation-calgary/page.tsx](C:\All doors repair project\app\door-repair-installation-calgary\page.tsx)
+/lock-hardware-installation-calgary → [app/lock-hardware-installation-calgary/page.tsx](C:\All doors repair project\app\lock-hardware-installation-calgary\page.tsx)
+/window-screen-repair-calgary → [app/window-screen-repair-calgary/page.tsx](C:\All doors repair project\app\window-screen-repair-calgary\page.tsx)
+/gallery → [app/gallery/page.tsx](C:\All doors repair project\app\gallery\page.tsx)
+/contact → [app/contact/page.tsx](C:\All doors repair project\app\contact\page.tsx)
+Global layout shell → [app/layout.tsx](C:\All doors repair project\app\layout.tsx)
+Design System / Global Styling
+
+[styles/globals.css](C:\All doors repair project\styles\globals.css)
+color tokens
+base typography
+shared utility classes
+hero styles
+placeholder styles
+mobile safe area
+Business + Content Data (primary content truth)
+
+[data/siteConfig.ts](C:\All doors repair project\data\siteConfig.ts)
+business name, phone, email, hours, service area, CTA text, diagnostic text, locksmith disclaimer
+[data/navigation.ts](C:\All doors repair project\data\navigation.ts)
+top nav labels/order/links
+[data/services.ts](C:\All doors repair project\data\services.ts)
+home service cards (title, desc, link, image filename mapping)
+[data/faqs.ts](C:\All doors repair project\data\faqs.ts)
+FAQs per page key
+[data/galleryItems.ts](C:\All doors repair project\data\galleryItems.ts)
+gallery categories and items
+[data/imagePlaceholders.ts](C:\All doors repair project\data\imagePlaceholders.ts)
+full placeholder manifest (filename, size, purpose, alt, orientation, page/section)
+Reusable UI Components
+
+[components/Header.tsx](C:\All doors repair project\components\Header.tsx)
+[components/Footer.tsx](C:\All doors repair project\components\Footer.tsx)
+[components/MobileStickyActions.tsx](C:\All doors repair project\components\MobileStickyActions.tsx)
+[components/Section.tsx](C:\All doors repair project\components\Section.tsx)
+[components/CTASection.tsx](C:\All doors repair project\components\CTASection.tsx)
+[components/ServiceCard.tsx](C:\All doors repair project\components\ServiceCard.tsx)
+[components/ServicePage.tsx](C:\All doors repair project\components\ServicePage.tsx)
+[components/GalleryGrid.tsx](C:\All doors repair project\components\GalleryGrid.tsx)
+[components/FAQSection.tsx](C:\All doors repair project\components\FAQSection.tsx)
+[components/ContactForm.tsx](C:\All doors repair project\components\ContactForm.tsx)
+[components/ImagePlaceholder.tsx](C:\All doors repair project\components\ImagePlaceholder.tsx)
+Assets Location
+
+public/images/
+expected to contain real owner-provided images/video later
+optional hero video filename expected: home-hero-background-video.mp4
