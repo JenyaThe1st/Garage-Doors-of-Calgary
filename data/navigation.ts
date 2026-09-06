@@ -1,12 +1,15 @@
 export type NavItem = {
   label: string;
   href: string;
-  /** Future route slug — not used in V1 UI navigation */
-  futureRoute?: string;
 };
 
-export const navigation: NavItem[] = [
-  { label: "Services", href: "#services", futureRoute: "/services" },
-  { label: "About", href: "#why-choose-us", futureRoute: "/about" },
-  { label: "Contact", href: "#contact-information", futureRoute: "/contact" },
+export const primaryNavigation: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/contact" },
 ];
+
+export function getNavHash(href: string) {
+  const hashIndex = href.indexOf("#");
+  return hashIndex === -1 ? "" : href.slice(hashIndex);
+}

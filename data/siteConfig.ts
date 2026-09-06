@@ -10,7 +10,16 @@ export const siteConfig = {
   },
   serviceAreas: {
     primary: "Calgary",
-    surrounding: ["Airdrie", "Chestermere", "Cochrane", "Okotoks"] as const,
+    surrounding: [
+      "Okotoks",
+      "Airdrie",
+      "Chestermere",
+      "Cochrane",
+      "De Winton",
+      "Springbank",
+      "Bearspaw",
+      "Heritage Pointe",
+    ] as const,
     radius: "50 km",
   },
   availabilityLabel: "Open 7 Days a Week",
@@ -28,7 +37,7 @@ export const siteConfig = {
     },
     secondary: {
       label: "Request Service",
-      href: "#final-cta",
+      href: "/#final-cta",
     },
   },
 } as const;

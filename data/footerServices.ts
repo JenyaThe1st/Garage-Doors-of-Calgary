@@ -1,12 +1,12 @@
 export const footerServices = [
-  "Door Installations and Repairs",
-  "Window Installations and Repairs",
-  "Garage Doors Installations",
-  "Garage Doors Hardware Replacement",
-  "Locks and hardware installation",
-  "Patio door repairs",
-  "Mesh screen replacement and repair",
-  "Shower doors repair and installation",
+  "Garage Door Spring Replacement",
+  "Garage Door Cable Replacement",
+  "Garage Door Opener Installation & Repair",
+  "Garage Door Roller Replacement",
+  "Garage Door Track Repair & Alignment",
+  "Garage Door Panel Replacement",
+  "Garage Door Maintenance & Tune-Ups",
+  "New Garage Door Installation",
 ] as const;
 
 export type FooterService = (typeof footerServices)[number];

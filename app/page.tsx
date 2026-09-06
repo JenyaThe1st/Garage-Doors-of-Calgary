@@ -2,7 +2,6 @@ import { Hero } from "@/components/home/Hero";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { BeforeAfter } from "@/components/home/BeforeAfter";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
-import { AlsoServing } from "@/components/home/AlsoServing";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function HomePage() {
@@ -12,7 +11,6 @@ export default function HomePage() {
       <ServicesSection />
       <BeforeAfter />
       <WhyChooseUs />
-      <AlsoServing />
       <FinalCTA />
     </main>
   );

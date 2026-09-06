@@ -9,9 +9,16 @@ export function FooterBottom() {
       <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
         <Link
           href="/"
-          className="font-display text-xl font-bold tracking-wide text-white"
+          aria-label={siteConfig.businessName}
+          className="inline-flex shrink-0 items-center"
         >
-          {siteConfig.businessName}
+          <img
+            src="/images/jdm-header-logo.png"
+            alt={siteConfig.businessName}
+            width={2172}
+            height={724}
+            className="h-10 w-auto object-contain"
+          />
         </Link>
         <p className="text-sm text-neutral-light">
           &copy; {currentYear} {siteConfig.businessName} &middot;{" "}

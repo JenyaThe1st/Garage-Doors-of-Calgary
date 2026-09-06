@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig, getPhoneHref } from "@/data/siteConfig";
-import { navigation } from "@/data/navigation";
+import { primaryNavigation, getNavHash, type NavItem } from "@/data/navigation";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 
@@ -24,49 +26,89 @@ function PhoneIcon({ className }: { className?: string }) {
   );
 }
 
-function MenuIcon({ className }: { className?: string }) {
+function BrandMark({
+  onNavigateHome,
+}: {
+  onNavigateHome: (event: MouseEvent<HTMLAnchorElement>) => void;
+}) {
   return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      aria-hidden="true"
+    <Link
+      href="/"
+      aria-label={siteConfig.businessName}
+      className="inline-flex shrink-0 items-center"
+      onClick={onNavigateHome}
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+      <img
+        src="/images/jdm-header-logo.png"
+        alt={siteConfig.businessName}
+        width={2172}
+        height={724}
+        className="h-12 w-auto object-contain object-left sm:h-14 lg:h-16"
       />
-    </svg>
+    </Link>
   );
 }
 
-function CloseIcon({ className }: { className?: string }) {
+const navLinkBase =
+  "text-white transition-[color,opacity] duration-150 ease-out hover:text-cta focus-visible:text-cta";
+
+function DesktopNavLink({
+  item,
+  onNavigate,
+}: {
+  item: NavItem;
+  onNavigate: (event: MouseEvent<HTMLAnchorElement>, href: string) => void;
+}) {
   return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      aria-hidden="true"
+    <a
+      href={item.href}
+      className={cn(
+        navLinkBase,
+        "inline-flex items-center px-3.5 py-2 text-[0.9375rem] font-medium uppercase tracking-[0.12em]"
+      )}
+      onClick={(event) => onNavigate(event, item.href)}
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
+      {item.label}
+    </a>
+  );
+}
+
+function NavSeparator({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn("select-none text-white/50", className)}
+    >
+      |
+    </span>
+  );
+}
+
+function MobileNavLink({
+  item,
+  onNavigate,
+}: {
+  item: NavItem;
+  onNavigate: (event: MouseEvent<HTMLAnchorElement>, href: string) => void;
+}) {
+  return (
+    <a
+      href={item.href}
+      className={cn(
+        navLinkBase,
+        "flex min-h-14 min-w-0 items-center justify-center whitespace-nowrap px-2.5 text-center font-display text-[0.91rem] font-semibold uppercase tracking-[0.08em] min-[360px]:text-[0.975rem] min-[360px]:tracking-[0.1em] min-[390px]:text-[1.1375rem]"
+      )}
+      onClick={(event) => onNavigate(event, item.href)}
+    >
+      {item.label}
+    </a>
   );
 }
 
 export function Header() {
+  const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -76,122 +118,114 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
+    const header = headerRef.current;
+    if (!header) return;
+
+    const syncHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        "--site-header-height",
+        `${header.offsetHeight}px`
+      );
     };
-  }, [menuOpen]);
+
+    syncHeaderHeight();
+    const observer = new ResizeObserver(syncHeaderHeight);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   useEffect(() => {
-    if (!menuOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [menuOpen]);
+    if (pathname !== "/") return;
+    const currentHash = window.location.hash;
+    if (!currentHash) return;
+    const target = document.getElementById(currentHash.slice(1));
+    if (!target) return;
+    const frame = window.requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname]);
 
-  const closeMenu = () => setMenuOpen(false);
+  const onNavigate = (
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href === "/" && pathname === "/") {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const nextHash = getNavHash(href);
+    if (!nextHash || pathname !== "/") return;
+
+    const target = document.getElementById(nextHash.slice(1));
+    if (!target) return;
+
+    event.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.pushState(null, "", nextHash);
+  };
 
   return (
     <header
+      ref={headerRef}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
+        scrolled || pathname !== "/"
           ? "bg-primary shadow-lg"
-          : "bg-gradient-to-b from-primary/70 to-transparent"
+          : "bg-primary shadow-lg lg:bg-transparent lg:bg-gradient-to-b lg:from-primary/70 lg:to-transparent lg:shadow-none"
       )}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a
-          href="#"
-          className="font-display text-xl font-bold tracking-wide text-white sm:text-2xl"
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            closeMenu();
-          }}
-        >
-          {siteConfig.businessName}
-        </a>
+      <div className="mx-auto max-w-7xl">
+        <div className="flex items-center justify-center px-4 py-3 sm:px-6 lg:justify-between lg:px-8 lg:py-3">
+          <BrandMark
+            onNavigateHome={(event) => {
+              if (pathname === "/") {
+                event.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+          />
 
-        <nav
-          className="hidden items-center gap-8 lg:flex"
-          aria-label="Main navigation"
-        >
-          {navigation.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-sm font-medium text-white/90 transition-colors hover:text-cta"
-            >
-              {item.label}
-            </a>
-          ))}
-          <Button
-            href={getPhoneHref()}
-            variant="primary"
-            className="!px-5 !py-2.5 !text-sm"
+          <nav
+            className="hidden items-center lg:flex"
+            aria-label="Main navigation"
           >
-            <PhoneIcon className="h-4 w-4" />
-            {siteConfig.ctas.primary.label}
-          </Button>
-        </nav>
-
-        <div className="flex items-center gap-3 lg:hidden">
-          <a
-            href={getPhoneHref()}
-            className="inline-flex items-center gap-1.5 rounded-md bg-cta px-3 py-2 text-sm font-semibold text-primary"
-            aria-label={`Call ${siteConfig.phoneDisplay}`}
-          >
-            <PhoneIcon className="h-4 w-4" />
-            <span className="sr-only sm:not-sr-only">{siteConfig.ctas.primary.label}</span>
-          </a>
-          <button
-            type="button"
-            className="rounded-md p-2 text-white"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            {menuOpen ? (
-              <CloseIcon className="h-6 w-6" />
-            ) : (
-              <MenuIcon className="h-6 w-6" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {menuOpen && (
-        <nav
-          id="mobile-menu"
-          className="border-t border-white/10 bg-primary lg:hidden"
-          aria-label="Mobile navigation"
-        >
-          <div className="mx-auto flex max-w-7xl flex-col px-4 py-4 sm:px-6">
-            {navigation.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="border-b border-white/10 py-4 text-base font-medium text-white transition-colors hover:text-cta"
-                onClick={closeMenu}
-              >
-                {item.label}
-              </a>
+            {primaryNavigation.map((item, index) => (
+              <div key={item.href} className="flex items-center">
+                {index > 0 && <NavSeparator className="mx-2" />}
+                <DesktopNavLink item={item} onNavigate={onNavigate} />
+              </div>
             ))}
-            <a
+            <Button
               href={getPhoneHref()}
-              className="mt-4 inline-flex items-center justify-center gap-2 rounded-md bg-cta px-6 py-3.5 text-base font-semibold text-primary"
-              onClick={closeMenu}
+              variant="primary"
+              className="ml-6 !px-[1.625rem] !py-[0.8125rem] !text-sm"
             >
-              <PhoneIcon className="h-5 w-5" />
-              Call {siteConfig.phoneDisplay}
-            </a>
-          </div>
+              <PhoneIcon className="h-4 w-4" />
+              {siteConfig.ctas.primary.label}
+            </Button>
+          </nav>
+        </div>
+
+        <div
+          className="h-px bg-white/50 lg:hidden"
+          role="presentation"
+        />
+
+        <nav
+          className="flex w-full min-w-0 items-center justify-center px-3 lg:hidden"
+          aria-label="Primary navigation"
+        >
+          {primaryNavigation.map((item, index) => (
+            <div key={item.href} className="flex min-w-0 items-center">
+              {index > 0 && <NavSeparator className="mx-2.5 shrink-0 sm:mx-3" />}
+              <MobileNavLink item={item} onNavigate={onNavigate} />
+            </div>
+          ))}
         </nav>
-      )}
+      </div>
     </header>
   );
 }

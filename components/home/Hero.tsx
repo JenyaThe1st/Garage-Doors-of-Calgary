@@ -1,7 +1,45 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { siteConfig, getPhoneHref, getAvailabilityLabel } from "@/data/siteConfig";
 import { Button } from "@/components/ui/Button";
 import { Metrics } from "@/components/home/Metrics";
+
+function HeroBackground() {
+  const alt = `Professional garage door service in ${siteConfig.location.city}`;
+
+  const {
+    props: { srcSet: mobileSrcSet, ...mobile },
+  } = getImageProps({
+    alt,
+    src: "/images/hero-background-mobile.png",
+    width: 941,
+    height: 1672,
+    sizes: "100vw",
+    quality: 85,
+    priority: true,
+  });
+
+  return (
+    <>
+      <picture className="absolute inset-0 md:hidden">
+        <source media="(max-width: 767px)" srcSet={mobileSrcSet} />
+        <img
+          {...mobile}
+          alt={alt}
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+      </picture>
+      <Image
+        src="/images/hero-background.png"
+        alt={alt}
+        fill
+        priority
+        sizes="100vw"
+        quality={85}
+        className="hidden object-cover object-center md:block"
+      />
+    </>
+  );
+}
 
 export function Hero() {
   const availabilityLabel = getAvailabilityLabel();
@@ -11,15 +49,7 @@ export function Hero() {
   return (
     <section className="relative min-h-[90vh] flex flex-col">
       <div className="absolute inset-0">
-        <Image
-          src="/images/hero-background.png"
-          alt={`Professional garage door service in ${siteConfig.location.city}`}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-          quality={85}
-        />
+        <HeroBackground />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/30" />
       </div>
 
