@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local source photos / logo drafts (production copies live in public/images)
+/Pictures/
