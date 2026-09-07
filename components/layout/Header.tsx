@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, type MouseEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig, getPhoneHref } from "@/data/siteConfig";
@@ -38,12 +39,15 @@ function BrandMark({
       className="inline-flex shrink-0 items-center"
       onClick={onNavigateHome}
     >
-      <img
+      <Image
         src="/images/jdm-header-logo.png"
         alt={siteConfig.businessName}
         width={2172}
         height={724}
+        priority
+        unoptimized
         className="h-12 w-auto object-contain object-left sm:h-14 lg:h-16"
+        style={{ width: "auto" }}
       />
     </Link>
   );
@@ -96,7 +100,7 @@ function MobileNavLink({
       href={item.href}
       className={cn(
         navLinkBase,
-        "flex min-h-14 min-w-0 items-center justify-center whitespace-nowrap px-2.5 text-center font-display text-[0.91rem] font-semibold uppercase tracking-[0.08em] min-[360px]:text-[0.975rem] min-[360px]:tracking-[0.1em] min-[390px]:text-[1.1375rem]"
+        "flex min-h-14 min-w-0 flex-1 items-center justify-center px-0.5 text-center font-display text-[0.75rem] font-semibold uppercase tracking-[0.04em] min-[390px]:text-[0.8125rem] min-[430px]:text-[0.91rem] sm:text-[1.1375rem] sm:tracking-[0.1em]"
       )}
       onClick={(event) => onNavigate(event, item.href)}
     >
@@ -108,14 +112,6 @@ function MobileNavLink({
 export function Header() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -170,12 +166,7 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled || pathname !== "/"
-          ? "bg-primary shadow-lg"
-          : "bg-primary shadow-lg lg:bg-transparent lg:bg-gradient-to-b lg:from-primary/70 lg:to-transparent lg:shadow-none"
-      )}
+      className="site-header fixed inset-x-0 top-0 z-50 max-w-[100vw] overflow-x-clip shadow-lg"
     >
       <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-center px-4 py-3 sm:px-6 lg:justify-between lg:px-8 lg:py-3">
@@ -215,12 +206,14 @@ export function Header() {
         />
 
         <nav
-          className="flex w-full min-w-0 items-center justify-center px-3 lg:hidden"
+          className="flex w-full min-w-0 max-w-full items-center px-2 sm:px-3 lg:hidden"
           aria-label="Primary navigation"
         >
           {primaryNavigation.map((item, index) => (
-            <div key={item.href} className="flex min-w-0 items-center">
-              {index > 0 && <NavSeparator className="mx-2.5 shrink-0 sm:mx-3" />}
+            <div key={item.href} className="flex min-w-0 flex-1 items-center">
+              {index > 0 && (
+                <NavSeparator className="mx-1 shrink-0 min-[390px]:mx-1.5 sm:mx-3" />
+              )}
               <MobileNavLink item={item} onNavigate={onNavigate} />
             </div>
           ))}

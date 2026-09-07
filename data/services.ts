@@ -1,9 +1,16 @@
+/**
+ * Homepage service cards (`/` #services).
+ * Presentation model: image + title + short description.
+ * Intentionally separate from `serviceOverviewCategories` and `footerServices`.
+ */
 export type Service = {
   id: string;
   title: string;
   description: string;
   image: string;
   imageAlt: string;
+  /** Optional framing for the 16/10 card. Defaults to object-cover. */
+  imageClassName?: string;
   /** Future dedicated page slug — not linked in V1 UI */
   futureRoute?: string;
 };
@@ -11,7 +18,7 @@ export type Service = {
 export const services: Service[] = [
   {
     id: "garage-door-repair",
-    title: "Garage Door Repair",
+    title: "Repair",
     description:
       "Off-track doors, damaged panels, and urgent fixes handled same-day across Calgary.",
     image: "/images/services/repair.jpg",
@@ -38,7 +45,7 @@ export const services: Service[] = [
   },
   {
     id: "door-installation",
-    title: "Garage Door Installation & Replacement",
+    title: "Installation & Replacement",
     description:
       "New residential and commercial doors installed with clean, professional finishing.",
     image: "/images/services/installation.jpg",
@@ -47,7 +54,7 @@ export const services: Service[] = [
   },
   {
     id: "openers",
-    title: "Garage Door Openers",
+    title: "Openers",
     description:
       "Opener repair, replacement, and installation for reliable everyday access.",
     image: "/images/services/opener.jpg",
@@ -59,8 +66,9 @@ export const services: Service[] = [
     title: "Rollers & Tracks",
     description:
       "Noisy, worn, or misaligned rollers and tracks adjusted or replaced as needed.",
-    image: "/images/services/rollers.jpg",
-    imageAlt: "Garage door roller and track repair",
+    image: "/images/services/rollers-tracks.jpeg",
+    imageAlt: "Garage door roller and hinge hardware",
+    imageClassName: "object-contain object-center group-hover:scale-100",
     futureRoute: "/rollers-tracks-calgary",
   },
   {

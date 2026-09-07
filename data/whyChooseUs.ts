@@ -5,6 +5,14 @@ export type WhyChooseItem = {
   description: string;
 };
 
+export const whyChooseUsSection = {
+  title: "Why Choose Us",
+  subtitle:
+    "Every customer has a different situation. We understand the problem first, then recommend the right solution.",
+  image: "/images/why-choose-us.jpg",
+  imageAlt: `Quality garage door installation in ${siteConfig.location.city}`,
+} as const;
+
 export const whyChooseUsItems: WhyChooseItem[] = [
   {
     title: "We diagnose first",
@@ -12,7 +20,7 @@ export const whyChooseUsItems: WhyChooseItem[] = [
       "Every customer has a different situation. We understand the problem before recommending the right solution — not the most expensive one.",
   },
   {
-    title: "6+ years of experience",
+    title: `${siteConfig.experience} of experience`,
     description:
       "Residential and commercial garage doors serviced across Calgary with practical, proven workmanship.",
   },

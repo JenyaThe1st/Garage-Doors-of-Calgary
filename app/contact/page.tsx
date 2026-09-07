@@ -9,8 +9,11 @@ import { ContactInfoList } from "@/components/shared/ContactInfoList";
 import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
-  title: `Contact | ${siteConfig.businessName}`,
-  description: `Contact ${siteConfig.businessName} with a question or message. Call ${siteConfig.phoneDisplay} or email ${siteConfig.email}.`,
+  title: siteConfig.seo.pages.contact.title,
+  description: siteConfig.seo.pages.contact.description,
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 type ContactPageProps = {
@@ -27,9 +30,9 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
 
   return (
     <main id="main-content" className="bg-primary">
-      <section className="mx-auto max-w-7xl px-4 pb-24 pt-32 sm:px-6 lg:px-8 lg:pt-36">
+      <section className="mx-auto max-w-7xl px-4 pb-24 pt-[calc(var(--site-header-height)+2.5rem)] sm:px-6 lg:px-8">
         <header className="mx-auto max-w-3xl text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Contact {siteConfig.businessName}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-neutral-light">

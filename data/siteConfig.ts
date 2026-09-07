@@ -1,13 +1,21 @@
+const businessName = "JDM Solution";
+const phoneDisplay = "(587) 215-1911";
+const phoneTel = "5872151911";
+const email = "jdmsolutionscalgary@gmail.com";
+const location = {
+  city: "Calgary",
+  province: "Alberta",
+  country: "CA",
+} as const;
+const availabilityLabel = "Open 7 Days a Week";
+const hoursLabel = "8am - 8pm";
+
 export const siteConfig = {
-  businessName: "JDM Solution",
-  phoneDisplay: "(587) 215-1911",
-  phoneTel: "5872151911",
-  email: "jdmsolutionscalgary@gmail.com",
-  location: {
-    city: "Calgary",
-    province: "Alberta",
-    country: "CA",
-  },
+  businessName,
+  phoneDisplay,
+  phoneTel,
+  email,
+  location,
   serviceAreas: {
     primary: "Calgary",
     surrounding: [
@@ -22,27 +30,51 @@ export const siteConfig = {
     ] as const,
     radius: "50 km",
   },
-  availabilityLabel: "Open 7 Days a Week",
-  hoursLabel: "8am - 8pm",
+  availabilityLabel,
+  hoursLabel,
   coverageLabel: "Calgary and the surrounding areas",
   availability: "7 days a week",
   hours: "8AM–8PM",
-  experience: "6+ years",
+  experience: "10+ years",
   tagline: "Garage door repair, installation and maintenance",
   serviceLabel: "Garage Door Services",
+  seo: {
+    title: `Garage Door Repair & Installation ${location.city} | ${businessName}`,
+    description: `Same-day garage door repair, installation and maintenance in ${location.city} and surrounding areas. Residential & commercial. Call ${phoneDisplay}. ${availabilityLabel}, ${hoursLabel}.`,
+    ogImage: "/images/hero-background.png",
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    ogImageAlt: `Garage door service in ${location.city}`,
+    pages: {
+      services: {
+        title: `Services | ${businessName}`,
+        description: `Garage door maintenance, repair, and new installations in ${location.city}. Call ${phoneDisplay}.`,
+      },
+      contact: {
+        title: `Contact | ${businessName}`,
+        description: `Contact ${businessName} with a question or message. Call ${phoneDisplay} or email ${email}.`,
+      },
+    },
+  },
   ctas: {
     primary: {
       label: "Call Now",
-      href: "tel:+15872151911",
     },
     secondary: {
       label: "Request Service",
-      href: "/#final-cta",
+      href: "/contact",
     },
   },
 } as const;
 
 export type SiteConfig = typeof siteConfig;
+
+export function getSiteUrl() {
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
+    /\/$/,
+    ""
+  );
+}
 
 export function getPhoneHref() {
   return `tel:+1${siteConfig.phoneTel}`;
@@ -60,12 +92,20 @@ export function getAvailabilityLabel() {
   return `${siteConfig.availabilityLabel} · ${siteConfig.hoursLabel}`;
 }
 
+export function getExperienceMetricValue() {
+  return siteConfig.experience.replace(/\s+years?$/i, "");
+}
+
+export function getRadiusMetricValue() {
+  return siteConfig.serviceAreas.radius.toUpperCase();
+}
+
 export function getMetadataTitle() {
-  return `Garage Door Repair & Installation ${siteConfig.location.city} | ${siteConfig.businessName}`;
+  return siteConfig.seo.title;
 }
 
 export function getMetadataDescription() {
-  return `Same-day garage door repair, installation and maintenance in ${siteConfig.location.city} and surrounding areas. Residential & commercial. Call ${siteConfig.phoneDisplay}. ${siteConfig.availabilityLabel}, ${siteConfig.hoursLabel}.`;
+  return siteConfig.seo.description;
 }
 
 export type ContactInfoItem = {

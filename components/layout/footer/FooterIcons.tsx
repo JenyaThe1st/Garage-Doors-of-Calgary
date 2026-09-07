@@ -39,23 +39,6 @@ export function ServicesIcon({ className }: IconProps) {
   );
 }
 
-export function NavigationIcon({ className }: IconProps) {
-  return (
-    <svg
-      className={cn("h-5 w-5", className)}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.75}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 11h18M3 6h18M3 16h18M8 21l-2-4 2-4" />
-    </svg>
-  );
-}
-
 export function ContactPanelIcon({ className }: IconProps) {
   return (
     <svg

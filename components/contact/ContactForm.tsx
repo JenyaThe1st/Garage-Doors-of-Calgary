@@ -286,7 +286,7 @@ export function ContactForm({ tracking }: { tracking: ContactTracking }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="mb-20 inline-flex min-h-11 w-full items-center justify-center whitespace-nowrap rounded-md bg-cta px-6 py-3.5 font-display text-sm font-bold uppercase tracking-[0.14em] text-primary shadow-sm transition-all hover:brightness-105 active:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 sm:mb-0 sm:w-auto sm:px-8"
+          className="inline-flex min-h-11 w-full items-center justify-center whitespace-nowrap rounded-md bg-cta px-6 py-3.5 font-display text-sm font-bold uppercase tracking-[0.14em] text-primary shadow-sm transition-all hover:brightness-105 active:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
         >
           {submitLabel}
         </button>

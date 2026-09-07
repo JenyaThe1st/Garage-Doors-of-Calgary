@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Barlow_Condensed } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -7,6 +7,7 @@ import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import {
   getMetadataTitle,
   getMetadataDescription,
+  getSiteUrl,
   siteConfig,
 } from "@/data/siteConfig";
 import "./globals.css";
@@ -24,12 +25,18 @@ const barlowCondensed = Barlow_Condensed({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-  ),
+  metadataBase: new URL(getSiteUrl()),
   title: getMetadataTitle(),
   description: getMetadataDescription(),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: getMetadataTitle(),
     description: getMetadataDescription(),
@@ -37,10 +44,10 @@ export const metadata: Metadata = {
     locale: "en_CA",
     images: [
       {
-        url: "/images/hero-background.png",
-        width: 1200,
-        height: 630,
-        alt: `Garage door service in ${siteConfig.location.city}`,
+        url: siteConfig.seo.ogImage,
+        width: siteConfig.seo.ogImageWidth,
+        height: siteConfig.seo.ogImageHeight,
+        alt: siteConfig.seo.ogImageAlt,
       },
     ],
   },

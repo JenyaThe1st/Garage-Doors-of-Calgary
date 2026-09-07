@@ -8,11 +8,11 @@ import {
   getRequestIp,
 } from "@/lib/contact/rateLimit";
 import { sendContactEmail } from "@/lib/contact/sendContactEmail";
+import { siteConfig } from "@/data/siteConfig";
 
 const MAX_BODY_BYTES = 16 * 1024;
 
-const GENERIC_ERROR =
-  "Something went wrong. Please try again or call (587) 215-1911.";
+const GENERIC_ERROR = `Something went wrong. Please try again or call ${siteConfig.phoneDisplay}.`;
 
 function jsonError(status: number, message: string, errors?: Record<string, string>) {
   return NextResponse.json(

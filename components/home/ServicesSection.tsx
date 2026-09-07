@@ -1,23 +1,17 @@
 import Image from "next/image";
 import { services } from "@/data/services";
+import { homeServices } from "@/data/home";
 import { siteConfig, getPhoneHref } from "@/data/siteConfig";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { MetricsBar } from "@/components/home/MetricsBar";
-
-const servicesCtaMetric = [
-  {
-    value: siteConfig.phoneDisplay,
-    label: "Need Help Today? Same-Day Service",
-    href: getPhoneHref(),
-  },
-];
+import { cn } from "@/lib/cn";
 
 export function ServicesSection() {
   return (
     <Section id="services">
       <SectionHeader
-        title="Our Services"
-        subtitle={`Full garage door service for ${siteConfig.location.city} homes and businesses — repair, installation, openers, and maintenance.`}
+        title={homeServices.title}
+        subtitle={homeServices.subtitle}
       />
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -33,7 +27,10 @@ export function ServicesSection() {
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 loading="lazy"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className={cn(
+                  "transition-transform duration-500 group-hover:scale-105",
+                  service.imageClassName ?? "object-cover"
+                )}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
@@ -50,7 +47,13 @@ export function ServicesSection() {
       </div>
 
       <MetricsBar
-        items={servicesCtaMetric}
+        items={[
+          {
+            value: siteConfig.phoneDisplay,
+            label: homeServices.ctaLabel,
+            href: getPhoneHref(),
+          },
+        ]}
         columns={1}
         className="mt-10 overflow-hidden rounded-lg"
       />

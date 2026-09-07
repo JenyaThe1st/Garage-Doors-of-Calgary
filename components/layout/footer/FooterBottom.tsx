@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig, getLocationLabel } from "@/data/siteConfig";
 
@@ -12,12 +13,14 @@ export function FooterBottom() {
           aria-label={siteConfig.businessName}
           className="inline-flex shrink-0 items-center"
         >
-          <img
+          <Image
             src="/images/jdm-header-logo.png"
             alt={siteConfig.businessName}
             width={2172}
             height={724}
+            unoptimized
             className="h-10 w-auto object-contain"
+            style={{ width: "auto" }}
           />
         </Link>
         <p className="text-sm text-neutral-light">

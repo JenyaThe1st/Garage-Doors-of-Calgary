@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { whyChooseUsItems } from "@/data/whyChooseUs";
-import { siteConfig } from "@/data/siteConfig";
+import { whyChooseUsItems, whyChooseUsSection } from "@/data/whyChooseUs";
 import { Section, SectionHeader } from "@/components/ui/Section";
 
 export function WhyChooseUs() {
@@ -9,8 +8,8 @@ export function WhyChooseUs() {
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
           <SectionHeader
-            title="Why Choose Us"
-            subtitle="Every customer has a different situation. We understand the problem first, then recommend the right solution."
+            title={whyChooseUsSection.title}
+            subtitle={whyChooseUsSection.subtitle}
             light
           />
           <ul className="space-y-6">
@@ -35,8 +34,8 @@ export function WhyChooseUs() {
 
         <div className="relative aspect-[4/5] overflow-hidden rounded-lg lg:aspect-[3/4]">
           <Image
-            src="/images/why-choose-us.jpg"
-            alt={`Quality garage door installation in ${siteConfig.location.city}`}
+            src={whyChooseUsSection.image}
+            alt={whyChooseUsSection.imageAlt}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
             loading="lazy"

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { ServiceOverviewCategory } from "@/data/serviceOverview";
 import { CheckIcon } from "@/components/ui/CheckIcon";
 import { ServiceCategoryImage } from "@/components/services/ServiceCategoryImage";
@@ -6,13 +7,13 @@ import { cn } from "@/lib/cn";
 type ServiceCategorySectionProps = {
   category: ServiceOverviewCategory;
   imageOnRight?: boolean;
-  showTopDivider?: boolean;
+  fadeTo?: string;
 };
 
 export function ServiceCategorySection({
   category,
   imageOnRight = false,
-  showTopDivider = false,
+  fadeTo,
 }: ServiceCategorySectionProps) {
   const headingId = `${category.id}-heading`;
   const isDark = category.panelTone === "dark";
@@ -21,11 +22,14 @@ export function ServiceCategorySection({
     <section
       id={category.id}
       aria-labelledby={headingId}
-      className={cn(
-        "py-16 md:py-24",
-        showTopDivider && "border-t border-black/20"
-      )}
-      style={{ backgroundColor: category.panelBackground }}
+      data-fade-to={fadeTo}
+      className="service-overview-panel py-16 md:py-24"
+      style={
+        {
+          "--panel-color": category.panelBackground,
+          "--panel-fade-to": fadeTo,
+        } as CSSProperties
+      }
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div

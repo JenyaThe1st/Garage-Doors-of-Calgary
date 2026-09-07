@@ -6,8 +6,11 @@ import { ServiceCategorySection } from "@/components/services/ServiceCategorySec
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const metadata: Metadata = {
-  title: `Services | ${siteConfig.businessName}`,
-  description: `Garage door maintenance, repair, and new installations in ${siteConfig.location.city}. Call ${siteConfig.phoneDisplay}.`,
+  title: siteConfig.seo.pages.services.title,
+  description: siteConfig.seo.pages.services.description,
+  alternates: {
+    canonical: "/services",
+  },
 };
 
 export default function ServicesPage() {
@@ -15,14 +18,16 @@ export default function ServicesPage() {
     <main id="main-content">
       <ServicesBanner />
 
-      {serviceOverviewCategories.map((category, index) => (
-        <ServiceCategorySection
-          key={category.id}
-          category={category}
-          imageOnRight={index % 2 === 1}
-          showTopDivider={index > 0}
-        />
-      ))}
+      <div className="service-overview-panels">
+        {serviceOverviewCategories.map((category, index) => (
+          <ServiceCategorySection
+            key={category.id}
+            category={category}
+            imageOnRight={index % 2 === 1}
+            fadeTo={serviceOverviewCategories[index + 1]?.panelBackground}
+          />
+        ))}
+      </div>
 
       <FinalCTA />
     </main>

@@ -12,12 +12,3 @@ export function getServiceAreaLocations(): ServiceAreaLocation[] {
     ...surrounding.map((name) => ({ name, isPrimary: false })),
   ];
 }
-
-export function getSurroundingServiceAreas(): ServiceAreaLocation[] {
-  return getServiceAreaLocations().filter((area) => !area.isPrimary);
-}
-
-export function getServiceAreaRadiusLabel() {
-  const { primary, radius } = siteConfig.serviceAreas;
-  return `Approximately ${radius} around ${primary}`;
-}

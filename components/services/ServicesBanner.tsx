@@ -1,71 +1,39 @@
-import { getImageProps } from "next/image";
+import Image from "next/image";
+import { servicesBanner } from "@/data/serviceOverview";
 
 function ServicesBannerBackground() {
-  const alt = "";
-
-  const {
-    props: { srcSet: mobileSrcSet, ...mobile },
-  } = getImageProps({
-    alt,
-    src: "/images/services/overview-banner-mobile.png",
-    width: 1024,
-    height: 1536,
-    sizes: "100vw",
-    quality: 85,
-    priority: true,
-  });
-
-  const {
-    props: { srcSet: tabletSrcSet, ...tablet },
-  } = getImageProps({
-    alt,
-    src: "/images/services/overview-banner-tablet.png",
-    width: 1774,
-    height: 887,
-    sizes: "100vw",
-    quality: 85,
-    priority: true,
-  });
-
-  const {
-    props: { srcSet: desktopSrcSet, ...desktop },
-  } = getImageProps({
-    alt,
-    src: "/images/services/overview-banner-desktop.png",
-    width: 2172,
-    height: 724,
-    sizes: "100vw",
-    quality: 85,
-    priority: true,
-  });
+  const { mobile, tablet, desktop } = servicesBanner.images;
 
   return (
     <>
-      <picture className="absolute inset-0 md:hidden">
-        <source media="(max-width: 767px)" srcSet={mobileSrcSet} />
-        <img
-          {...mobile}
-          alt={alt}
-          className="h-full w-full object-cover object-center"
-        />
-      </picture>
-
-      <picture className="absolute inset-0 hidden md:block xl:hidden">
-        <source
-          media="(min-width: 768px) and (max-width: 1279px)"
-          srcSet={tabletSrcSet}
-        />
-        <img
-          {...tablet}
-          alt={alt}
-          className="h-full w-full object-cover object-center"
-        />
-      </picture>
-
-      <picture className="hidden xl:block">
-        <source media="(min-width: 1280px)" srcSet={desktopSrcSet} />
-        <img {...desktop} alt={alt} className="block h-auto w-full" />
-      </picture>
+      <Image
+        src={mobile.src}
+        alt={mobile.alt}
+        fill
+        priority
+        sizes="100vw"
+        quality={85}
+        className="object-cover object-center md:hidden"
+      />
+      <Image
+        src={tablet.src}
+        alt={tablet.alt}
+        fill
+        priority
+        sizes="100vw"
+        quality={85}
+        className="hidden object-cover object-center md:block xl:hidden"
+      />
+      <Image
+        src={desktop.src}
+        alt={desktop.alt}
+        width={desktop.width}
+        height={desktop.height}
+        priority
+        sizes="100vw"
+        quality={85}
+        className="hidden h-auto w-full xl:block"
+      />
     </>
   );
 }
@@ -83,7 +51,7 @@ export function ServicesBanner() {
             id="services-heading"
             className="font-display text-[48px] font-bold leading-[48px] tracking-tight text-white drop-shadow-md md:text-[72px] md:leading-[72px] xl:text-6xl xl:leading-none"
           >
-            Our Services
+            {servicesBanner.heading}
           </h1>
         </div>
       </div>

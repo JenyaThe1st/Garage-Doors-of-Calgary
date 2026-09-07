@@ -1,3 +1,8 @@
+export const beforeAfterSection = {
+  title: "Real Jobs. Real Results.",
+  subtitle: "See the difference professional garage door service makes.",
+} as const;
+
 export type BeforeAfterPair = {
   id: string;
   title: string;
