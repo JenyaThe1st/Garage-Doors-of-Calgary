@@ -3,6 +3,7 @@ import { DM_Sans, Barlow_Condensed } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileStickyCall } from "@/components/layout/MobileStickyCall";
+import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import {
   getMetadataTitle,
@@ -66,6 +67,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <GoogleAnalytics />
         <LocalBusinessSchema />
         <Header />
         {children}

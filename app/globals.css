@@ -56,7 +56,15 @@ body {
 }
 
 .site-header {
-  background: linear-gradient(90deg, #353a3d 0%, #24282a 50%, #111314 100%);
+  background: linear-gradient(
+    90deg,
+    #8a9197 0%,
+    #6d747b 16%,
+    #545b61 34%,
+    #3a4044 55%,
+    #24282a 78%,
+    #111314 100%
+  );
 }
 
 .site-footer {

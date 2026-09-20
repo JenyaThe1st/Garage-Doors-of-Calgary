@@ -13,7 +13,7 @@ export type BeforeAfterPair = {
 export const beforeAfterPairs: BeforeAfterPair[] = [
   {
     id: "door-off-track",
-    title: "Off-Track Door Repair",
+    title: "Same Day Garage Door Replacement",
     before: {
       src: "/images/before-after/door-before.jpg",
       alt: "Garage door off track before repair",

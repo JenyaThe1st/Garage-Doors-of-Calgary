@@ -58,6 +58,21 @@ async function sendWithResend(
   });
 
   if (!response.ok) {
+    let providerBody = "";
+    try {
+      providerBody = await response.text();
+    } catch {
+      providerBody = "(unreadable response body)";
+    }
+
+    console.error("[contact] Resend rejected the message", {
+      status: response.status,
+      statusText: response.statusText,
+      body: providerBody.slice(0, 2000),
+      hasApiKey: Boolean(apiKey),
+      hasFromEmail: Boolean(from),
+    });
+
     throw new Error("Email provider rejected the message.");
   }
 }

@@ -77,7 +77,7 @@ export function BeforeAfterSlider({ pair }: BeforeAfterSliderProps) {
         />
 
         <div
-          className="absolute top-1/2 z-20 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg"
+          className="absolute top-1/2 z-20 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg"
           style={{ left: `${position}%` }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -94,7 +94,7 @@ export function BeforeAfterSlider({ pair }: BeforeAfterSliderProps) {
           }}
         >
           <svg
-            className="h-5 w-5 text-primary"
+            className="h-8 w-8 text-primary"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}

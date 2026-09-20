@@ -36,7 +36,7 @@ function BrandMark({
     <Link
       href="/"
       aria-label={siteConfig.businessName}
-      className="inline-flex shrink-0 items-center"
+      className="inline-flex h-full shrink-0 items-center py-0.5"
       onClick={onNavigateHome}
     >
       <Image
@@ -46,7 +46,7 @@ function BrandMark({
         height={724}
         priority
         unoptimized
-        className="h-12 w-auto object-contain object-left sm:h-14 lg:h-16"
+        className="h-full w-auto object-contain object-left"
         style={{ width: "auto" }}
       />
     </Link>
@@ -169,7 +169,7 @@ export function Header() {
       className="site-header fixed inset-x-0 top-0 z-50 max-w-[100vw] overflow-x-clip shadow-lg"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="flex items-center justify-center px-4 py-3 sm:px-6 lg:justify-between lg:px-8 lg:py-3">
+        <div className="flex h-[4.5rem] items-center justify-center px-4 sm:h-20 sm:px-6 lg:h-[5.5rem] lg:justify-between lg:px-8">
           <BrandMark
             onNavigateHome={(event) => {
               if (pathname === "/") {
