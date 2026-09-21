@@ -48,8 +48,8 @@ export const siteConfig = {
     googleAnalyticsId: "G-GN2610B3ZE",
     pages: {
       services: {
-        title: `Services | ${businessName}`,
-        description: `Garage door maintenance, repair, and new installations in ${location.city}. Call ${phoneDisplay}.`,
+        title: `Garage Door Services in ${location.city} | ${businessName}`,
+        description: `Garage door maintenance, repair, and new installations in ${location.city}. We diagnose the problem, explain your options, and get your door working properly. Call ${phoneDisplay}.`,
       },
       contact: {
         title: `Contact | ${businessName}`,

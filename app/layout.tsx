@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Barlow_Condensed } from "next/font/google";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { MobileStickyCall } from "@/components/layout/MobileStickyCall";
-import { GoogleAnalytics } from "@/components/seo/GoogleAnalytics";
-import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import {
   getMetadataTitle,
   getMetadataDescription,
@@ -61,18 +57,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${dmSans.variable} ${barlowCondensed.variable} antialiased pb-16 md:pb-0`}
-      >
+      <body className={`${dmSans.variable} ${barlowCondensed.variable} antialiased`}>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <GoogleAnalytics />
-        <LocalBusinessSchema />
-        <Header />
-        {children}
-        <Footer />
-        <MobileStickyCall />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

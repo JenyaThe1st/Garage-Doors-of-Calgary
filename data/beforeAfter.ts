@@ -25,7 +25,7 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
   },
   {
     id: "hinge-replacement",
-    title: "Hinge Replacement",
+    title: "Hardware Upgrade & Replacement",
     before: {
       src: "/images/before-after/hinge-before.jpg",
       alt: "Damaged garage door hinge before replacement",
@@ -37,14 +37,14 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
   },
   {
     id: "door-installation",
-    title: "Door Replacement",
+    title: "Opener Replacement",
     before: {
-      src: "/images/before-after/install-before.jpg",
-      alt: "Worn garage door before replacement",
+      src: "/images/before-after/opener-before.jpeg",
+      alt: "Old garage door opener before replacement",
     },
     after: {
-      src: "/images/before-after/install-after.jpg",
-      alt: "New garage door installed after replacement",
+      src: "/images/before-after/opener-after.jpeg",
+      alt: "New garage door opener installed after replacement",
     },
   },
 ];

@@ -8,12 +8,14 @@ type ServiceCategorySectionProps = {
   category: ServiceOverviewCategory;
   imageOnRight?: boolean;
   fadeTo?: string;
+  compactTop?: boolean;
 };
 
 export function ServiceCategorySection({
   category,
   imageOnRight = false,
   fadeTo,
+  compactTop = false,
 }: ServiceCategorySectionProps) {
   const headingId = `${category.id}-heading`;
   const isDark = category.panelTone === "dark";
@@ -23,7 +25,10 @@ export function ServiceCategorySection({
       id={category.id}
       aria-labelledby={headingId}
       data-fade-to={fadeTo}
-      className="service-overview-panel py-16 md:py-24"
+      className={cn(
+        "service-overview-panel",
+        compactTop ? "pb-16 pt-8 md:pb-24 md:pt-10" : "py-16 md:py-24"
+      )}
       style={
         {
           "--panel-color": category.panelBackground,
@@ -40,7 +45,7 @@ export function ServiceCategorySection({
               : "xl:[grid-template-areas:'image_heading'_'image_body']"
           )}
         >
-          <h2
+          <h3
             id={headingId}
             className={cn(
               "[grid-area:heading] font-display text-3xl font-bold tracking-tight sm:text-4xl",
@@ -48,7 +53,7 @@ export function ServiceCategorySection({
             )}
           >
             {category.title}
-          </h2>
+          </h3>
 
           <div className="[grid-area:image] min-w-0">
             <ServiceCategoryImage
