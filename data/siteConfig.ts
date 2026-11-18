@@ -45,7 +45,7 @@ export const siteConfig = {
     ogImageWidth: 1200,
     ogImageHeight: 630,
     ogImageAlt: `Garage door service in ${location.city}`,
-    googleAnalyticsId: "G-GN2610B3ZE",
+    googleTagManagerId: "GTM-P89PW8TV",
     pages: {
       services: {
         title: `Garage Door Services in ${location.city} | ${businessName}`,
