@@ -2,6 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { DM_Sans, Barlow_Condensed } from "next/font/google";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import {
+  GoogleTagManagerHead,
+  GoogleTagManagerNoscript,
+} from "@/components/seo/GoogleAnalytics";
+import {
   getMetadataTitle,
   getMetadataDescription,
   getSiteUrl,
@@ -57,7 +61,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <GoogleTagManagerHead />
+      </head>
       <body className={`${dmSans.variable} ${barlowCondensed.variable} antialiased`}>
+        <GoogleTagManagerNoscript />
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
